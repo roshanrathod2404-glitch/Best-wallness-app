@@ -20,20 +20,23 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # Step 3: Setup Gradle (this now actually installs Gradle & puts it in PATH)
+      # Step 3: Install Gradle directly (this guarantees the `gradle` command exists)
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
+        uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
 
-      # Step 4: Ensure gradlew exists & Grant permissions
+      # Step 4: Generate gradlew if missing, then make it executable
       - name: Prepare Gradle Wrapper
         run: |
+          echo "Checking for gradlew..."
           if [ ! -f "./gradlew" ]; then
-            echo "Gradlew not found! Generating Gradle wrapper..."
+            echo "gradlew not found, generating it now..."
             gradle wrapper --gradle-version 8.9
           fi
           chmod +x gradlew
+          echo "gradlew is ready:"
+          ls -la gradlew
 
       # Step 5: Build Debug APK
       - name: Build Debug APK
