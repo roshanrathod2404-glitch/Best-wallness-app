@@ -1,0 +1,6 @@
+{
+  "name": "SmartFit Wellness",
+  "description": "SmartFit Wellness mobile application with contacts hub, automated messaging reminders, and secure authentication.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
