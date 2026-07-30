@@ -1,15 +1,13 @@
-l
-Build Android APK
+name: Build APK
 
 on:
   push:
-    branches: [ "main", "master" ]
-  pull_request:
-    branches: [ "main", "master" ]
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -17,19 +15,19 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
           distribution: 'temurin'
+          java-version: '17'
 
-      - name: Install Gradle
+      - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: '8.11'
+          gradle-version: '8.7'
 
-      - name: Build Debug APK (using installed Gradle directly)
-        run: gradle assembleDebug --stacktrace
+      - name: Build Debug APK
+        run: gradle assembleDebug
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug-apk
-          path: "**/build/outputs/apk/debug/*.apk"
+          name: app-debug
+          path: app/build/outputs/apk/debug/app-debug.apk
